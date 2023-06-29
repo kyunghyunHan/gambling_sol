@@ -40,10 +40,13 @@ contract Lottery {
       
       lotteryHistory[lotteryId]= players[index];
       lotteryId++;
-      (bool success,)  = players[index].call{value: address(this).balance}("");
+
+     address payable winner= players[index];
+     players= new address payable[](0);
+
+      (bool success,)  = winner.call{value: address(this).balance}("");
         require(success,"Falied to Ether");
 
-        players= new address payable[](0);
 
     }
 
